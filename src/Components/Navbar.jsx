@@ -5,10 +5,10 @@ import { HomeOutlined, MoneyCollectOutlined, FundOutlined, BulbOutlined, LoginOu
 import icon from '../images/cryptocurrency.png'
 import './Navbar.css'
 import { useAuth } from '../api/AuthContext'
-import Logout from '../Pages/Logout'
-
+import Cookies from 'js-cookie'
 const Navbar = () => {
     const { logout,isAuthenticated } = useAuth()
+    const cookies = Cookies.get('user')
     return (
         <div className='navbar-container'>
             <div className='logo-container'>
@@ -31,7 +31,7 @@ const Navbar = () => {
                     <Menu.Item icon={<BulbOutlined />}>
                         <Link to='/news'>News</Link>
                     </Menu.Item>
-                    {isAuthenticated && 
+                    {cookies && 
                     <Menu.Item icon={<LoginOutlined/>}>
                         <Link to='/logout'>Logout</Link>
                     </Menu.Item>}

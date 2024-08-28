@@ -20,7 +20,7 @@ const Homepage = () => {
 
   return (
     <div>
-      <Title level={2} className='homepage'>Global Crypto Stats</Title>
+      <Title level={2} className='homepage text-white'>Global Crypto Stats</Title>
       <Row>
         <Col span={12}>
           <Statistic title="Total cryptocurrencies" value={millify(cryptoDetails?.data?.totalCoins || 0)} />
