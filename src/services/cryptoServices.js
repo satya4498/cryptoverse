@@ -28,7 +28,6 @@ export const {useGetCryptoDataQuery} = cryptoApi
 
 export const getCryptoDetils = async (params) => {
     try {
-       
         const response = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin');
         return response.data;
     } catch (error) {
@@ -37,6 +36,24 @@ export const getCryptoDetils = async (params) => {
     }
 }
 
+export const getExchanges = async ()=> {
+try {
+const options = {
+  method: 'GET',
+  url: 'https://coingecko.p.rapidapi.com/exchanges',
+  headers: {
+    'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016',
+    'x-rapidapi-host': 'coingecko.p.rapidapi.com'
+  }
+};
+
+	const response = await axios.request(options);
+    return response.data;
+} catch (error) {
+	console.error(error);
+    return null;
+}
+}
 export const getCryptoCoinDetails = async (uuid) => {
 
 const options = {

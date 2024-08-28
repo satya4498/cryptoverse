@@ -1,13 +1,11 @@
 import React from 'react'
-import { Button, Menu, Typography, Avatar } from 'antd'
-import { Link,useNavigate } from 'react-router-dom'
+import { Menu, Typography, Avatar } from 'antd'
+import { Link } from 'react-router-dom'
 import { HomeOutlined, MoneyCollectOutlined, FundOutlined, BulbOutlined, LoginOutlined } from '@ant-design/icons'
 import icon from '../images/cryptocurrency.png'
 import './Navbar.css'
-import { useAuth } from '../api/AuthContext'
 import Cookies from 'js-cookie'
 const Navbar = () => {
-    const { logout,isAuthenticated } = useAuth()
     const cookies = Cookies.get('user')
     return (
         <div className='navbar-container'>
@@ -19,16 +17,16 @@ const Navbar = () => {
             </div>
             <div className='menu-container'>
                 <Menu theme='dark' style={{height:"100vh"}}>
-                    <Menu.Item icon={<HomeOutlined />}>
+                    <Menu.Item key={"home-menu"} icon={<HomeOutlined />}>
                         <Link to='/'>Home</Link>
                     </Menu.Item>
-                    <Menu.Item icon={<FundOutlined />}>
+                    <Menu.Item key="Cryptocurrencies-page" icon={<FundOutlined />}>
                         <Link to='/cryptocurrencies'>Cryptocurrencies</Link>
                     </Menu.Item>
-                    <Menu.Item icon={<MoneyCollectOutlined />}>
-                        <Link to='/exchanges'>Exchanges</Link>
+                    <Menu.Item key="exchanges-page" icon={<MoneyCollectOutlined />}>
+                        <Link to='/Exchanges'>Exchanges</Link>
                     </Menu.Item>
-                    <Menu.Item icon={<BulbOutlined />}>
+                    <Menu.Item key='news-page' icon={<BulbOutlined />}>
                         <Link to='/news'>News</Link>
                     </Menu.Item>
                     {cookies && 

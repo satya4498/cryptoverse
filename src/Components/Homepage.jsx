@@ -2,21 +2,31 @@ import React, { useState, useEffect } from 'react'
 import millify from 'millify'
 import { Typography, Row, Col, Statistic, Divider,Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
-import { getCryptoDetils } from '../services/cryptoServices'
+import { getCryptoDetils,getExchanges } from '../services/cryptoServices'
 import { useGetCryptoDataQuery } from '../services/cryptoServices'
-
-
+import { useDispatch } from 'react-redux';
+import {exchangeSlice} from '../redux/reducer'
 
 const { Title } = Typography
 const Homepage = () => {
   const [cryptoDetails, setCryptoDetails] = useState(null)
   const { data, isLoading, isError } = useGetCryptoDataQuery()
+  const dispatch = useDispatch();
+  
   useEffect(() => {
     if (data && !isLoading && !isError) {
       setCryptoDetails(data)
     }
-  }, [data, isLoading, isError])
-
+  }, [data, isLoading, isError,dispatch])
+  useEffect(()=> {
+    const getExchangesHandler = async () => {
+      const exchanges = await getExchanges();
+      if(exchanges){
+        dispatch(exchangeSlice.actions.setExchanges(exchanges));
+      }
+      }
+      getExchangesHandler()
+  },[dispatch])
 
   return (
     <div>
