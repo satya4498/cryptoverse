@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
 import { Card, Avatar, Row, Col, Typography, Tag } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
+import './exchanges.css'
 import { getExchanges } from '../services/cryptoServices'
 import { useDispatch } from 'react-redux';
 import {exchangeSlice} from '../redux/reducer'
