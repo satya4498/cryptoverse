@@ -48,7 +48,7 @@ const Cryptocurrencies = () => {
               <p><strong>ID:</strong> {item.id}</p>
               <p><strong>Symbol:</strong> {item.symbol}</p>
               <p><strong>Name:</strong> {item.name}</p>
-              {/* <Button onClick={()=>navigate(`/crypto/${item.id}`)}>Details</Button> */}
+              <Button type='primary'  onClick={()=>navigate(`/crypto/${item.id}`)}>Details</Button>
             </Card>
           </List.Item>
         )}

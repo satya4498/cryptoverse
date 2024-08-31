@@ -96,3 +96,30 @@ export const getCoinList = async () => {
     console.error(error);
   }
 }
+export const getCryptoCoinData = async(coinId)=> {
+  const options = {
+    method: 'GET',
+    url: `https://coingecko.p.rapidapi.com/coins/${coinId}`,
+    params: {
+      localization: 'true',
+      tickers: 'true',
+      market_data: 'true',
+      community_data: 'true',
+      developer_data: 'true',
+      sparkline: 'false'
+    },
+    headers: {
+      'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016',
+      'x-rapidapi-host': 'coingecko.p.rapidapi.com'
+    }
+  };
+  
+  try {
+    const response = await axios.request(options);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
