@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-let initialState ={
+let initialState = {
     exchanges: [],
+    coinLists:[]
 }
 
 export const exchangeSlice = createSlice({
@@ -12,4 +13,16 @@ export const exchangeSlice = createSlice({
             state.exchanges = action.payload;
         },
     },
+})
+
+
+export const crypoCurrenciesSlice = createSlice({
+    name: 'coinLists',
+    initialState,
+    reducers: {
+        setCoinList: (state,action) => {
+            state.coinLists = action.payload
+        }
+    }
+
 })
