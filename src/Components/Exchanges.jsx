@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
 import { Card, Avatar, Row, Col, Typography, Tag } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
-
+import './exchanges.css'
 const { Title, Text } = Typography;
 
 const Exchanges = () => {
@@ -14,15 +14,15 @@ const Exchanges = () => {
     }
   }, [exchanges])
   return (
-    <div> 
+    <div className="Exchanges-Container"> 
     <Typography.Title style={{color:"green"}} level={2}>Exchanges</Typography.Title>
     {
-      <Row gutter={[3, 3]} justify="center" style={{ marginTop: 50 }}>
+      <Row gutter={[16, 16]} justify="center" style={{ marginTop: 50 }}>
       {exchangeData && exchangeData.map((exchange) => (
         <Col key={exchange.id}>
           <Card
             hoverable
-            style={{ width: 300, height: 300 }}
+            style={{ width: 300, height: 270 }}
             // cover={<img style={{width:200,height:100}}  alt={exchange.name} src={exchange.image} />}
           >
             <Card.Meta
