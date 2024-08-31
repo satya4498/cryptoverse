@@ -1,7 +1,7 @@
 import React,{useEffect,useState,useCallback} from 'react'
 import { List, Card, Pagination, Typography, Button} from 'antd';
 import {getCoinList} from '../services/cryptoServices'
-import {useDispatch} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import {crypoCurrenciesSlice} from '../redux/reducer'
 
@@ -10,6 +10,7 @@ const Cryptocurrencies = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
+  const coinListData = useSelector(state=>state.coinList.coinLists)
 
   const handleChangePage = (page, size) => {
     setCurrentPage(page);
@@ -29,6 +30,9 @@ const Cryptocurrencies = () => {
     dispatch(crypoCurrenciesSlice.actions.setCoinList(response))
     }
   },[dispatch])
+  useEffect(()=>{
+    setCoinList(coinListData)
+  },[coinListData])
 
   useEffect(()=> {
     loadCoinList()

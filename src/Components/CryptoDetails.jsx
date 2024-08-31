@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useCallback } from 'react'
 import { Typography, Row, Col, Statistic, Divider, Tooltip } from 'antd'
 import { useGetCryptoDataQuery, getCryptoCoinDetails, getCryptoCoinData } from '../services/cryptoServices'
 import millify from 'millify'
@@ -9,26 +9,27 @@ const CryptoDetails = (props) => {
   const [id, setId] = useState(null)
   const [currentCoin, setCurrentCoin] = useState({})
   const { data, isLoading, isError } = useGetCryptoDataQuery()
+  const getCoinData = useCallback(async (uuid) => {
+    if (uuid) {
+      const response = await getCryptoCoinDetails(uuid)
+      if (response) {
+        setCurrentCoin(response.data)
+      } else {
+        const coinRes = await getCryptoCoinData(uuid)
+        setCurrentCoin(coinRes)
+        console.log(coinRes)
+      }
+    }
+  },[])
   useEffect(() => {
     let id = window?.location?.pathname.replace('/', '')
     let uuid = id.split('/')[1]
     if (id?.length > 1) {
       setId(uuid)
     }
-    const getCoinData = async () => {
-      if (uuid) {
-        const response = await getCryptoCoinDetails(uuid)
-        if (response) {
-          setCurrentCoin(response.data)
-        } else {
-          const coinRes = await getCryptoCoinData(uuid)
-          setCurrentCoin(coinRes)
-          console.log(coinRes)
-        }
-      }
-    }
-    getCoinData()
-  }, [data])
+    getCoinData(uuid)
+
+  }, [data,getCoinData])
   return (
     <div style={{ color: "darkgoldenrod" }}>
       <Typography.Title level={3}>Crypto Details</Typography.Title>
