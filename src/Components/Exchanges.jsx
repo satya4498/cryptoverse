@@ -2,17 +2,30 @@ import React,{useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
 import { Card, Avatar, Row, Col, Typography, Tag } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
-import './exchanges.css'
+import { getExchanges } from '../services/cryptoServices'
+import { useDispatch } from 'react-redux';
+import {exchangeSlice} from '../redux/reducer'
+
 const { Title, Text } = Typography;
 
 const Exchanges = () => {
   const [exchangeData,setExchangeData] = useState([])
   const exchanges = useSelector(state => state.exchange.exchanges)
+  const dispatch = useDispatch()
   useEffect(() => {
     if(exchanges){
       setExchangeData(exchanges)
     }
   }, [exchanges])
+  useEffect(()=> {
+    const getExchangesHandler = async () => {
+      const exchanges = await getExchanges();
+      if(exchanges){
+        dispatch(exchangeSlice.actions.setExchanges(exchanges));
+      }
+      }
+      getExchangesHandler()
+  },[dispatch])
   return (
     <div className="Exchanges-Container"> 
     <Typography.Title style={{color:"green"}} level={2}>Exchanges</Typography.Title>
