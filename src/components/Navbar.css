@@ -1,0 +1,14 @@
+.avatar {
+    background-color: darkgoldenrod;
+}
+
+.navbar-container {
+    /* display: flex; */
+    position: fixed;
+}
+
+
+.menu-item {
+    cursor: pointer;
+    padding: 10px;
+}
