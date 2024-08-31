@@ -33,7 +33,7 @@ const Cryptocurrencies = () => {
   useEffect(()=>{
     setCoinList(coinListData)
   },[coinListData])
-  
+
   useEffect(()=> {
     loadCoinList()
     return ()=>{}
