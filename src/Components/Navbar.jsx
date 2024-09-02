@@ -6,7 +6,7 @@ import icon from '../images/cryptocurrency.png'
 import './Navbar.css'
 import Cookies from 'js-cookie'
 const Navbar = () => {
-    const cookies = Cookies.get('user')
+    const cookies = Cookies.get('token')
     return (
         <div className='navbar-container'>
             <div className='logo-container'>

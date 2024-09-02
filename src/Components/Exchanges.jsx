@@ -11,22 +11,26 @@ const { Title, Text } = Typography;
 
 const Exchanges = () => {
   const [exchangeData,setExchangeData] = useState([])
-  const exchanges = useSelector(state => state.exchange.exchanges)
+  const exchangesData = useSelector(state => state.exchange.exchanges)
   const dispatch = useDispatch()
   useEffect(() => {
-    if(exchanges){
-      setExchangeData(exchanges)
+    if(exchangesData){
+      setExchangeData(exchangesData)
     }
-  }, [exchanges])
+  }, [exchangesData])
   useEffect(()=> {
     const getExchangesHandler = async () => {
+      if(exchangesData?.length){
+        return;
+      }
       const exchanges = await getExchanges();
       if(exchanges){
+        console.log(exchanges)
         dispatch(exchangeSlice.actions.setExchanges(exchanges));
       }
       }
       getExchangesHandler()
-  },[dispatch])
+  },[dispatch,exchangesData])
   return (
     <div className="Exchanges-Container"> 
     <Typography.Title style={{color:"green"}} level={2}>Exchanges</Typography.Title>

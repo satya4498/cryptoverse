@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createApi,fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
-
+const host = process.env.REACT_APP_HOST_LOCAL
  const cryptoApiHeaders = {
             'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
             'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016'
@@ -16,58 +16,39 @@ export const cryptoApi = createApi({
     endpoints: (builder) => ({
         getCryptoData: builder.query({
             query: ()=> createRequest('/stats')
-        }),
-        // getCryptoDetils: builder.query({
-        //     query: '/exchanges',
-        //     headers: cryptoApiHeaders
-        // })
-    
-})
+        })
+      })
 })
 export const {useGetCryptoDataQuery} = cryptoApi
 
-export const getCryptoDetils = async (params) => {
-    try {
-        const response = await axios.get('https://api.coingecko.com/api/v3/coins/bitcoin');
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching crypto details:', error);
-        return null;
-    }
-}
-
 export const getExchanges = async ()=> {
 try {
-const options = {
-  method: 'GET',
-  url: 'https://coingecko.p.rapidapi.com/exchanges',
-  headers: {
-    'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016',
-    'x-rapidapi-host': 'coingecko.p.rapidapi.com'
-  }
-};
-
-	const response = await axios.request(options);
+const requestoptions = {
+    method: 'GET',
+    url: `${host}/api/v1/Exchanges`,
+    params: {},
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+}
+	const response = await axios.request(requestoptions);
     return response.data;
 } catch (error) {
-	console.error(error);
     return null;
 }
 }
 export const getCryptoCoinDetails = async (uuid) => {
-
 const options = {
   method: 'GET',
-  url: `https://coinranking1.p.rapidapi.com/coin/${uuid}`,
+  url: `${host}/api/v1/crypto`,
   params: {
-    referenceCurrencyUuid: 'yhjMzLPhuIDl',
-    timePeriod: '24h',
-    // uuid: uuid
+    coinId: uuid
   },
   headers: {
-    'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016',
-    'x-rapidapi-host': 'coinranking1.p.rapidapi.com'
-  }
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true
 };
 
 try {
@@ -75,7 +56,6 @@ try {
 	// console.log(response.data);
     return response.data;
 } catch (error) {
-	console.error(error);
     return null
 }
 }

@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 
 const ProtectedRoute = ({Component,path}) => {
     const {isAuthenticated } = useAuth();
-    const user = Cookies.get('user')
+    const user = Cookies.get('token')
   return (<>{(isAuthenticated || user)?<Component path={path}/>:<Login path={path}/>}</>)
 }
 
