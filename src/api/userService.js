@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = process.env.REACT_APP_HOST_LOCAL
+const url = process.env.REACT_APP_HOST
 
 export const getUser = async (user)=> {
     try{
