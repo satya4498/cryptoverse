@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createApi,fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
-const host = process.env.REACT_APP_HOST_LOCAL
+const host = process.env.REACT_APP_HOST
  const cryptoApiHeaders = {
             'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
             'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016'
