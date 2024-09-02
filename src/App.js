@@ -18,8 +18,6 @@ function App() {
           <div className="routes">
             <Routes>
               <Route exact path="/" element={<ProtectedRoute Component={Homepage} path='/'/>} />
-              <Route exact path="/exchange" element={<Exchanges />} />
-              <Route exact path="/exchange/:coinId" element={<ProtectedRoute Component={Exchanges} path='/exchange/:coinId'/>} />
               <Route exact path="/cryptocurrencies" element={<ProtectedRoute Component={Cryptocurrencies} path='/cryptocurrencies'/>} />
               <Route exact path="/Exchanges" element={<ProtectedRoute Component={Exchanges} path='/Exchanges'/>} />
               <Route exact path="/crypto/:coinid" element={<ProtectedRoute Component={CryptoDetails} path='/crypto/:coinid'/>} />

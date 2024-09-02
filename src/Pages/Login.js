@@ -9,8 +9,8 @@ const Login = (props) => {
     const navigate = useNavigate()
     const {login} = useAuth()
     useEffect(()=>{
-        const user = Cookies.get('user')
-        console.log(user)
+        const user = Cookies.get('token')
+        // console.log(user)
         if(user){
             navigate(props.path)
             login(user)

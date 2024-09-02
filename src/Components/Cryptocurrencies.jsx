@@ -24,12 +24,15 @@ const Cryptocurrencies = () => {
   const dispatch = useDispatch()
 
   const loadCoinList = useCallback(async()=> {
+    if(coinListData?.length) {
+      return;
+    }; 
     const response = await getCoinList()
     setCoinList(response)
     if(response){
     dispatch(crypoCurrenciesSlice.actions.setCoinList(response))
     }
-  },[dispatch])
+  },[dispatch,coinListData])
   useEffect(()=>{
     setCoinList(coinListData)
   },[coinListData])

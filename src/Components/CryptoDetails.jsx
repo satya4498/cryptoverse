@@ -1,23 +1,19 @@
 import React, { useState, useEffect,useCallback } from 'react'
 import { Typography, Row, Col, Statistic, Divider, Tooltip } from 'antd'
-import { useGetCryptoDataQuery, getCryptoCoinDetails, getCryptoCoinData } from '../services/cryptoServices'
+import { getCryptoCoinDetails} from '../services/cryptoServices'
 import millify from 'millify'
 import { ConsoleSqlOutlined } from '@ant-design/icons'
 
 
 const CryptoDetails = (props) => {
-  const [id, setId] = useState(null)
   const [currentCoin, setCurrentCoin] = useState({})
-  const { data, isLoading, isError } = useGetCryptoDataQuery()
   const getCoinData = useCallback(async (uuid) => {
     if (uuid) {
       const response = await getCryptoCoinDetails(uuid)
-      if (response) {
-        setCurrentCoin(response.data)
-      } else {
-        const coinRes = await getCryptoCoinData(uuid)
-        setCurrentCoin(coinRes)
-        console.log(coinRes)
+      if (response?.data) {
+        setCurrentCoin(response?.data)
+      }else{
+        setCurrentCoin(response)
       }
     }
   },[])
@@ -25,11 +21,10 @@ const CryptoDetails = (props) => {
     let id = window?.location?.pathname.replace('/', '')
     let uuid = id.split('/')[1]
     if (id?.length > 1) {
-      setId(uuid)
+      getCoinData(uuid)
     }
-    getCoinData(uuid)
 
-  }, [data,getCoinData])
+  }, [getCoinData])
   return (
     <div style={{ color: "darkgoldenrod" }}>
       <Typography.Title level={3}>Crypto Details</Typography.Title>
