@@ -3,6 +3,10 @@ import React,{useState,useEffect} from 'react'
 import {useAuth} from "../api/AuthContext"
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
+import './login.css'
+
+
+
 const Login = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -18,15 +22,16 @@ const Login = (props) => {
     },[login,navigate,props.path])
     
   return (
-    <div>
+    <div className="login-container">
         <Typography.Title level={2}>Welcome To CryptoVerse</Typography.Title>
-        <Input onChange={(e)=>setUsername(e.target.value)} placeholder='Username' />
-        <Input onChange={(e)=>setPassword(e.target.value)} placeholder='Password' type='password' />
-        <Button onClick={()=>{
+        <Input className="input" onChange={(e)=>setUsername(e.target.value)} placeholder='Username' />
+        <Input className="input" onChange={(e)=>setPassword(e.target.value)} placeholder='Password' type='password' />
+        <Button className="login-button" onClick={()=>{
             login({username,password})
             navigate(props.path || '/')
             }} 
     type='primary'>Login</Button>
+    <Typography.Paragraph>{}</Typography.Paragraph>
     </div>
   )
 }
