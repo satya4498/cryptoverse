@@ -68,17 +68,21 @@ try {
 export const getCoinList = async () => {
   const options = {
     method: 'GET',
-    url: 'https://coingecko.p.rapidapi.com/coins/list',
+    url: `${host}/api/v1/list`,
+    params: {},
     headers: {
-      'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016',
-      'x-rapidapi-host': 'coingecko.p.rapidapi.com'
-    }
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    withCredentials: true
   };
+  
   try {
     const response = await axios.request(options);
-    return response.data
+    // console.log(response.data);
+      return response.data;
   } catch (error) {
-    console.error(error);
+      return null
   }
 }
 export const getCryptoCoinData = async(coinId)=> {
