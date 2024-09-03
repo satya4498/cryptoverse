@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import { HomeOutlined, MoneyCollectOutlined, FundOutlined, BulbOutlined, LoginOutlined } from '@ant-design/icons'
 import icon from '../images/cryptocurrency.png'
 import './Navbar.css'
-import Cookies from 'js-cookie'
-const Navbar = () => {
-    const cookies = Cookies.get('token')
+
+const Navbar = (props) => {
+    
     return (
         <div className='navbar-container'>
             <div className='logo-container'>
@@ -29,7 +29,7 @@ const Navbar = () => {
                     <Menu.Item key='news-page' icon={<BulbOutlined />}>
                         <Link to='/news'>News</Link>
                     </Menu.Item>
-                    {cookies && 
+                    {props.isLoggedIn && 
                     <Menu.Item icon={<LoginOutlined/>}>
                         <Link to='/logout'>Logout</Link>
                     </Menu.Item>}

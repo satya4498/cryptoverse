@@ -1,26 +1,50 @@
+/* login.css */
+
 .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f2f5; /* Light background color */
+    padding: 20px;
+}
+
+.login-container .ant-typography {
+    margin-bottom: 20px;
+    color: #1890ff; /* Primary color for the title */
 }
 
 .input {
+    width: 100%;
+    max-width: 300px; /* Limit the width of the input fields */
+    margin-bottom: 15px;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 250px;
-    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+}
+
+.input:focus {
+    border-color: #1890ff; /* Focus color */
+    box-shadow: 0 0 5px rgba(24, 144, 255, 0.5); /* Subtle shadow on focus */
 }
 
 .login-button {
-    padding: 10px 20px;
-    background-color:#1cb5df ;
-    color: rgb(236, 243, 245);
+    width: 100%;
+    max-width: 300px;
+    background-color: #1890ff; /* Primary color for the button */
+    color: #fff;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
     transition: background-color 0.3s ease;
-    width: 90px;
-    height: 40px;
+}
+
+.login-button:hover {
+    background-color: #40a9ff; /* Lighter shade on hover */
+}
+
+.login-button:disabled {
+    background-color: #d9d9d9; /* Disabled state color */
+    cursor: not-allowed;
 }

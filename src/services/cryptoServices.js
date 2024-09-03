@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createApi,fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
 import Cookie from "js-cookie"
+
 const host = process.env.REACT_APP_HOST
 let token = Cookie.get('token')
  const cryptoApiHeaders = {
@@ -23,8 +24,7 @@ export const cryptoApi = createApi({
 })
 export const {useGetCryptoDataQuery} = cryptoApi
 
-export const getExchanges = async ()=> {
-  
+export const getExchanges = async (authToken)=> {
 try {
 const requestoptions = {
     method: 'GET',
@@ -32,7 +32,7 @@ const requestoptions = {
     params: {},
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token || authToken}`
     },
     withCredentials: true
 }
@@ -42,7 +42,7 @@ const requestoptions = {
     return null;
 }
 }
-export const getCryptoCoinDetails = async (uuid) => {
+export const getCryptoCoinDetails = async (uuid,authToken) => {
 const options = {
   method: 'GET',
   url: `${host}/api/v1/crypto`,
@@ -51,7 +51,7 @@ const options = {
   },
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
+    'Authorization': `Bearer ${token || authToken}`
   },
   withCredentials: true
 };
@@ -65,14 +65,14 @@ try {
 }
 }
 
-export const getCoinList = async () => {
+export const getCoinList = async (authToken) => {
   const options = {
     method: 'GET',
     url: `${host}/api/v1/list`,
     params: {},
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token || authToken}`
     },
     withCredentials: true
   };

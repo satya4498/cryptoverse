@@ -3,27 +3,31 @@ import { Typography } from 'antd';
 import { useAuth } from '../api/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const Logout = (props) => {
+const Logout = ({ setIsLoggedIn }) => {
   const [count, setCount] = useState(5);
   const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     logout();
+    setIsLoggedIn(false);
+
     const timer = setInterval(() => {
       setCount((prevCount) => prevCount - 1);
     }, 1000);
+
+    return () => clearInterval(timer);
+  }, [logout, setIsLoggedIn]);
+
+  useEffect(() => {
     if (count === 0) {
-      navigate('/');
+      navigate('/login');
     }
-    return () => {
-      clearInterval(timer);
-    };
-  }, [count, logout, navigate]);
+  }, [count, navigate]);
 
   return (
     <Typography.Title>
-      Logged out Successfully & You will be redirected to the login page in {count} seconds
+      Logged out successfully. You will be redirected to the login page in {count} seconds.
     </Typography.Title>
   );
 };
