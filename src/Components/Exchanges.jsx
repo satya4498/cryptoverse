@@ -27,7 +27,6 @@ const Exchanges = () => {
       }
       const exchanges = await getExchanges(token);
       if(exchanges){
-        console.log(exchanges)
         dispatch(exchangeSlice?.actions?.setExchanges(exchanges));
       }
       }

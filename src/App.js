@@ -4,6 +4,7 @@ import { Layout, Typography, Space } from 'antd';
 import { Navbar, Homepage, Exchanges, Cryptocurrencies, CryptoDetails, News } from './Components';
 import Login from './Pages/Login';
 import Logout from "./Pages/Logout";
+import SignUp from "./Pages/SignUp";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import './App.css';
 import { useAuth } from './api/AuthContext';
@@ -35,6 +36,8 @@ function App() {
               <Route exact path="/crypto/:coinid" element={<ProtectedRoute Component={CryptoDetails} path='/crypto/:coinid' />} />
               <Route exact path="/logout" element={<ProtectedRoute Component={Logout} path='/' isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>} />
               <Route exact path="/news" element={<ProtectedRoute Component={News} path='/news' />} />
+              <Route exact path="/signup" element={<SignUp/>}/>
+              <Route path="/*" element={<div>Page not found</div>} />
             </Routes>
           </div>
         </Layout>

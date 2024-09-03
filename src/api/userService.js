@@ -24,3 +24,24 @@ export const getUser = async (user)=> {
         return null;
     }
 }
+export const createUser = async (user)=> {
+  try{
+      const uri = `${url}/api/v1/user`
+      const res = await axios.request({
+          method: 'POST',
+          url: uri,
+          headers: {
+            'Content-Type': 'application/json',
+            'Allow-Origin': '*'
+          },
+          credentials: 'include',
+          params: {}, 
+          data: user
+        });
+      console.log(res)
+      return res.data;
+  }catch(err){
+      console.error(err);
+      return null;
+  }
+}
