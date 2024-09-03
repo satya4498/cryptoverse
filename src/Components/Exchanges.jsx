@@ -6,13 +6,15 @@ import './exchanges.css'
 import { getExchanges } from '../services/cryptoServices'
 import { useDispatch } from 'react-redux';
 import {exchangeSlice} from '../redux/reducer'
-
+import { useAuth } from '../api/AuthContext';
 const { Title, Text } = Typography;
 
 const Exchanges = () => {
   const [exchangeData,setExchangeData] = useState([])
   const exchangesData = useSelector(state => state.exchange.exchanges)
   const dispatch = useDispatch()
+  const { token } = useAuth();
+
   useEffect(() => {
     if(exchangesData){
       setExchangeData(exchangesData)
@@ -23,14 +25,13 @@ const Exchanges = () => {
       if(exchangesData?.length){
         return;
       }
-      const exchanges = await getExchanges();
+      const exchanges = await getExchanges(token);
       if(exchanges){
-        console.log(exchanges)
-        dispatch(exchangeSlice.actions.setExchanges(exchanges));
+        dispatch(exchangeSlice?.actions?.setExchanges(exchanges));
       }
       }
       getExchangesHandler()
-  },[dispatch,exchangesData])
+  },[dispatch,exchangesData,token])
   return (
     <div className="Exchanges-Container"> 
     <Typography.Title style={{color:"green"}} level={2}>Exchanges</Typography.Title>

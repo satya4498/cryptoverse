@@ -1,6 +1,6 @@
 import React,{createContext,useState,useContext} from 'react'
 import Cookies from 'js-cookie'
-import {getUser} from './userService'
+import {createUser} from './userService'
 export const AuthContext = createContext(null) 
 
 export const AuthProvider = (props)=> {
@@ -10,16 +10,14 @@ export const AuthProvider = (props)=> {
         token:null,
         expiry:null
     })
-    const login = async (user) => {
+
+    const signUp = async (user) => {
         if(user){
-            const userRes = await getUser({
-                email:user.username,
-                password:user.password
-            })
+            const userRes = await createUser(user)
             if(userRes){
             setAuthState(prevState=>{
                 return {
-                    ...prevState,
+                   ...prevState,
                     isAuthenticated:true,
                     user:user,
                     token: userRes?.token,
@@ -33,6 +31,20 @@ export const AuthProvider = (props)=> {
         }
         }
     }
+    const login = async (user) => {
+        if(user){
+            setAuthState(prevState=>{
+                return {
+                    ...prevState,
+                    isAuthenticated:true,
+                    user:user,
+                    token: user?.token,
+                }
+            })
+          
+            Cookies.set('token',user?.token,{expires:2})
+        }
+    }
     const logout = ()=> {
         setAuthState({
                 isAuthenticated:false,
@@ -43,7 +55,7 @@ export const AuthProvider = (props)=> {
             Cookies.remove('token')
     }
     
-    return <AuthContext.Provider value={{...authState,login,logout}}>
+    return <AuthContext.Provider value={{...authState,login,logout,signUp}}>
         {props.children}
     </AuthContext.Provider>
 }

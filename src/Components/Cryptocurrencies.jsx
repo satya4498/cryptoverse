@@ -4,6 +4,8 @@ import {getCoinList} from '../services/cryptoServices'
 import {useSelector,useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import {crypoCurrenciesSlice} from '../redux/reducer'
+import { useAuth } from '../api/AuthContext';
+
 
 const Cryptocurrencies = () => {
   const [coinList,setCoinList] = useState([])
@@ -11,6 +13,10 @@ const Cryptocurrencies = () => {
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
   const coinListData = useSelector(state=>state.coinList.coinLists)
+  const { token } = useAuth();
+
+
+
 
   const handleChangePage = (page, size) => {
     setCurrentPage(page);
@@ -27,12 +33,12 @@ const Cryptocurrencies = () => {
     if(coinListData?.length) {
       return;
     }; 
-    const response = await getCoinList()
+    const response = await getCoinList(token)
     setCoinList(response)
     if(response){
     dispatch(crypoCurrenciesSlice.actions.setCoinList(response))
     }
-  },[dispatch,coinListData])
+  },[dispatch,coinListData,token])
   useEffect(()=>{
     setCoinList(coinListData)
   },[coinListData])
