@@ -1,6 +1,8 @@
 import axios from "axios";
 import { createApi,fetchBaseQuery, } from "@reduxjs/toolkit/query/react";
+import Cookie from "js-cookie"
 const host = process.env.REACT_APP_HOST
+let token = Cookie.get('token')
  const cryptoApiHeaders = {
             'x-rapidapi-host': 'coinranking1.p.rapidapi.com',
             'x-rapidapi-key': '3881f835b7mshcdc185d253e66b4p1381b6jsn94eb41fcf016'
@@ -22,6 +24,7 @@ export const cryptoApi = createApi({
 export const {useGetCryptoDataQuery} = cryptoApi
 
 export const getExchanges = async ()=> {
+  
 try {
 const requestoptions = {
     method: 'GET',
@@ -29,6 +32,7 @@ const requestoptions = {
     params: {},
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
     },
     withCredentials: true
 }
@@ -47,6 +51,7 @@ const options = {
   },
   headers: {
     'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
   },
   withCredentials: true
 };
