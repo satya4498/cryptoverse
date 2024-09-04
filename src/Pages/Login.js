@@ -30,6 +30,7 @@ const Login = (props) => {
       }
     },[isAuthenticated])
     const loginHandler = async ()=>{
+      setLoading(true)
       const userRes = await getUser({
         email:username,
         password
@@ -38,7 +39,7 @@ const Login = (props) => {
     if(userRes){
       setError(null)
         login(userRes)
-        setLoading(true)
+        setLoading(false)
         navigate(props.path || '/')
     }else{
       setLoading(false)
