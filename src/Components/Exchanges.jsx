@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { useSelector } from 'react-redux';
-import { Card, Avatar, Row, Col, Typography, Tag } from 'antd';
+import { Card, Avatar, Row, Col, Typography, Tag,Skeleton } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 import './exchanges.css'
 import { getExchanges } from '../services/cryptoServices'
@@ -11,13 +11,16 @@ const { Title, Text } = Typography;
 
 const Exchanges = () => {
   const [exchangeData,setExchangeData] = useState([])
+  const [loading,setLoading] = useState(false);
   const exchangesData = useSelector(state => state.exchange.exchanges)
   const dispatch = useDispatch()
   const { token } = useAuth();
 
   useEffect(() => {
+    setLoading(true)
     if(exchangesData){
       setExchangeData(exchangesData)
+      setLoading(false)
     }
   }, [exchangesData])
   useEffect(()=> {
@@ -25,16 +28,21 @@ const Exchanges = () => {
       if(exchangesData?.length){
         return;
       }
+      setLoading(true)
       const exchanges = await getExchanges(token);
       if(exchanges){
+        setLoading(false)
         dispatch(exchangeSlice?.actions?.setExchanges(exchanges));
       }
       }
       getExchangesHandler()
   },[dispatch,exchangesData,token])
+
   return (
     <div className="Exchanges-Container"> 
     <Typography.Title style={{color:"green"}} level={2}>Exchanges</Typography.Title>
+    { loading?<Skeleton loading={loading} active={loading}/>:
+    <>
     {
       <Row gutter={[16, 16]} justify="center" style={{ marginTop: 50 }}>
       {exchangeData && exchangeData.map((exchange) => (
@@ -47,7 +55,7 @@ const Exchanges = () => {
             <Card.Meta
               avatar={<Avatar src={exchange.image} />}
               title={exchange.name}
-              description={exchange.country}
+              description={`Origin: ${exchange.country}`}
             />
             <div style={{ marginTop: 16 }}>
               <Title level={5}>Trust Score: {exchange.trust_score}</Title>
@@ -76,6 +84,8 @@ const Exchanges = () => {
         </Col>
       ))}
     </Row>
+    }
+    </>
     }
     </div>
   )

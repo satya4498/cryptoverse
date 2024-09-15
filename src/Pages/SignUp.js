@@ -16,12 +16,12 @@ const SignUp = () => {
     };
     const signUpHandler = () => {
         if(!formdata.name ||!formdata.phone ||!formdata.email ||!formdata.password){
-            setErrorMsg('Please fill all fields');
-            return;
+            setErrorMsg('Please fill all fields')
+            return
         }
         if(formdata.password.length < 8){
             setErrorMsg('Password should be at least 8 characters long');
-            return;
+            return
         }
         if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formdata.email)){
             setErrorMsg('Please enter a valid email address');
