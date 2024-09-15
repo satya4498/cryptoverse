@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useCallback} from 'react'
-import { List, Card, Pagination, Typography, Button} from 'antd';
+import { List, Card, Pagination, Typography, Button, Skeleton} from 'antd';
 import {getCoinList} from '../services/cryptoServices'
 import {useSelector,useDispatch} from 'react-redux'
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { useAuth } from '../api/AuthContext';
 
 const Cryptocurrencies = () => {
   const [coinList,setCoinList] = useState([])
+  const [loading,setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
@@ -30,12 +31,16 @@ const Cryptocurrencies = () => {
   const dispatch = useDispatch()
 
   const loadCoinList = useCallback(async()=> {
+    setLoading(true)
     if(coinListData?.length) {
+      setLoading(false)
       return;
     }; 
+    setLoading(true)
     const response = await getCoinList(token)
     setCoinList(response)
     if(response){
+      setLoading(false)
     dispatch(crypoCurrenciesSlice.actions.setCoinList(response))
     }
   },[dispatch,coinListData,token])
@@ -49,8 +54,8 @@ const Cryptocurrencies = () => {
   },[loadCoinList])
   return (
     <div>
-      <Typography.Title level={3} >Cryptocurrency</Typography.Title>
-
+    <Typography.Title level={3} >Cryptocurrency</Typography.Title>
+    {loading?<Skeleton loading={loading} active={loading}/>:
     <div>
       <List
         grid={{ gutter: 16, column: 1 }}
@@ -74,7 +79,8 @@ const Cryptocurrencies = () => {
         showSizeChanger
         pageSizeOptions={[10, 20, 50, 100]}
       />
-      </div>
+    </div>
+      }
     </div>
   )
 }
