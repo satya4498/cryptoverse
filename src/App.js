@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { Switch, Link, Route, Routes } from 'react-router-dom'
 import { Layout, Typography, Spacer, Space } from 'antd'
-import { Navbar, Homepage, Exchanges, Cryptocurrencies, CryptoDetails, News } from './Components'
+import { Navbar, Homepage, Exchanges, Cryptocurrencies, CryptoDetails, News } from './components'
 import Login from './Pages/Login'
 import Logout from "./Pages/Logout";
 import ProtectedRoute from "./routes/ProtectedRoute";
